@@ -30,7 +30,7 @@ const Reserve = ({ id }: ReserveProps) => {
   };
 
   return (
-    <div>
+    <div className="flex gap-4">
       <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}>
         {mutation.isPending ? "Reserving..." : "Reserve"}
       </Button>

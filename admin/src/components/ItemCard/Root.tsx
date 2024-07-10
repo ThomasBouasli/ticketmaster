@@ -21,10 +21,10 @@ interface RootProps {
 export const Root = ({ id, name, description }: RootProps) => {
   return (
     <Card>
-      <Reserve id={id} />
-      <CardHeader className="relative">
+      <CardHeader className="space-y-4">
         <CardTitle>{name}</CardTitle>
         <CardDescription>{description}</CardDescription>
+        <Reserve id={id} />
       </CardHeader>
       <CardFooter className="gap-4">
         <Price id={id} />

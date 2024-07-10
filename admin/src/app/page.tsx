@@ -12,9 +12,9 @@ export default function Home() {
   if (query.isLoading) return <div>Loading...</div>;
 
   return (
-    <div className="space-y-8">
-      <div className="container mx-auto space-y-4 p-8">
-        <Dialog />
+    <div className="container space-y-8 mx-auto p-8">
+      <Dialog />
+      <div className="grid grid-cols-3 gap-4">
         {query.data.map((item: any) => (
           <ItemCard
             key={item.id}
