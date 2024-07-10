@@ -1,0 +1,7 @@
+{
+  "name": "@ticketmaster/source",
+  "version": "1.0.0",
+  "devDependencies": {
+    "nx": "19.4.1"
+  }
+}

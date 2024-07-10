@@ -1,0 +1,39 @@
+services:
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"
+    image: localstack/localstack
+    ports:
+      - "127.0.0.1:4566:4566"
+    environment:
+      - DEBUG=1
+    volumes:
+      - "./services/inventory/.localstack/init.sh:/etc/localstack/init/ready.d/init.sh"
+      - "${LOCALSTACK_VOLUME_DIR:-./.localstack}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+  inventory:
+    depends_on:
+      - localstack
+    build:
+      context: .
+      dockerfile: ./services/inventory/Dockerfile
+    ports:
+      - "3002:3000"
+    environment:
+      - RESERVATION_TIMEOUT=5
+      - AWS_ENDPOINT=http://localstack:4566
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_SQS_QUEUE_URL=http://sqs.us-east-1.localstack.localstack.cloud:4566/000000000000/reservation-timeout
+  catalog:
+    build:
+      context: .
+      dockerfile: ./services/catalog/Dockerfile
+    ports:
+      - "3001:3000"
+  sales:
+    build:
+      context: .
+      dockerfile: ./services/sales/Dockerfile
+    ports:
+      - "3003:3000"
